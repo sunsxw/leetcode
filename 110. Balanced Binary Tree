@@ -15,14 +15,14 @@
  */
  
  /**
- three cases
- 1)leftHight = -1, rightHight = -1
-   return -1
- 2)leftHight - rightHight > 1
-   return -1
- 3)leftHight - rightHight <= 1
-   max(leftHight, rightHight)+1
-  */
+ *three cases
+ *1)leftHight = -1, rightHight = -1
+ *  return -1
+ *2)leftHight - rightHight > 1
+ *  return -1
+ *3)leftHight - rightHight <= 1
+ *  max(leftHight, rightHight)+1
+ */
  
 class Solution {
     public boolean isBalanced(TreeNode root) {
