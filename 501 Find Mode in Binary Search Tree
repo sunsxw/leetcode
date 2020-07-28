@@ -1,0 +1,74 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ 
+ /* solution
+ value of lefe node <= node <= value of right node
+ In that order, the tree can be converted to ascending list. 
+ Compare the count and note the largest count. 
+ */
+ 
+ 
+ 
+class Solution {
+    
+    private List<Integer> list = new ArrayList<>();
+    private int count = -1;
+    private int maxCount = 0;
+    private int lastValue = Integer.MAX_VALUE;
+    
+    public int[] findMode(TreeNode root) {
+        find(root);
+        
+        if(count > maxCount){
+            maxCount = count;
+            list.clear();
+            list.add(lastValue);
+        }else if(count == maxCount){
+            list.add(lastValue);
+        }
+        
+        int[] result = new int[list.size()];
+        for(int i = 0; i < list.size(); i++){
+            result[i] = list.get(i);
+        }
+        
+        return result;
+    }
+    
+    public void find(TreeNode root){
+        if(root == null){
+            return;
+        }
+        
+        find(root.left);
+        
+        if(root.val != lastValue){
+            if(count > maxCount){
+                maxCount = count;
+                list.clear();
+                list.add(lastValue);
+            }else if(count == maxCount){
+                list.add(lastValue);
+            }
+            count = 1;
+            lastValue = root.val;
+        }else{
+            count++;
+        }
+        
+        find(root.right);
+    }
+}
