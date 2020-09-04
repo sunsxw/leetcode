@@ -1,3 +1,9 @@
+// 1. if nums[left] < nums[mid] < nums[right], then the minimum is in [left, mid]
+// 2. if nums[left] < nums[mid] && nums[mid] > nums[right], then the minimum is in [mid, right]
+// 3. if nums[left] > nums[mid] && nums[mid] < nums[right], then the minimum is in [left, mid]
+// 4. if nums[left] > nums[mid] > nums[right], well, it won't happe
+
+
 class Solution {
     public int findMin(int[] nums) {
         // int res = Integer.MAX_VALUE;
