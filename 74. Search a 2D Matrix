@@ -1,0 +1,48 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix == null || matrix.length == 0 || matrix[0].length == 0){
+            return false;
+        }
+        
+        // figure out the row
+        int row = -1;
+        int rowStart = 0;
+        int rowEnd = matrix.length - 1;
+        int colEnd = matrix[0].length - 1;
+        while(rowStart + 1 < rowEnd) {
+            int rowMid = rowStart + (rowEnd - rowStart) / 2;
+            if(matrix[rowMid][colEnd] < target) {
+                rowStart = rowMid;
+            }else {
+                rowEnd = rowMid;
+            }
+        }
+        
+        if(matrix[rowStart][colEnd] >= target) {
+            row = rowStart;
+        }else if (matrix[rowEnd][colEnd] >= target){
+            row = rowEnd;
+        }else {
+            return false;
+        }
+        
+        //figure out the column
+        int colStart = 0;
+        while(colStart + 1 < colEnd) {
+            int colMid = colStart + (colEnd - colStart) / 2;
+            if(matrix[row][colMid] == target) {
+                return true;
+            }else if(matrix[row][colMid] < target) {
+                colStart = colMid;
+            }else {
+                colEnd = colMid;
+            }
+        }
+        
+        if(matrix[row][colStart] == target || matrix[row][colEnd] == target) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+}
