@@ -1,0 +1,58 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        if(s == null || s.length() == 0 || t == null || t.length() == 0){
+            return "";
+        }
+        
+        HashMap<Character, Integer> map = new HashMap<>();
+        // for(int i = 0; i < t.length(); i++){
+        //     if(!map.containsKey(t.charAt(i))){
+        //         map.put(t.charAt(i), 1);
+        //     }else{
+        //         map.put(t.charAt(i), map.get(t.charAt(i)) + 1);
+        //     }
+        // }
+        for(char ch : t.toCharArray()){
+            Integer count = map.get(ch);
+            if(count == null){
+                map.put(ch, 1);
+            }else {
+                map.put(ch, count + 1);
+            }
+        }
+        
+        int left = 0;
+        int minLength = Integer.MAX_VALUE;
+        int matchCount = 0;
+        int index = 0;
+        
+        for(int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            Integer count = map.get(c);
+            if(count == null) {
+                continue;
+            }
+            map.put(c, count - 1);
+            if(count == 1){
+                matchCount++;
+            }
+            
+            while(matchCount == map.size()){
+                if(right - left + 1 < minLength) {
+                    minLength = right - left + 1;
+                    index = left;
+                }
+                char leftMost = s.charAt(left++);
+                Integer leftMostCount = map.get(leftMost);
+                if(leftMostCount == null) {
+                    continue;
+                }
+                map.put(leftMost, leftMostCount + 1);
+                if(leftMostCount == 0) {
+                    matchCount--;
+                }
+            }
+        }
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(index, index + minLength);
+    }
+}
