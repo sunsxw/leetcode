@@ -1,0 +1,30 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return;
+        }
+        
+        int replace = nums.length - 2;
+        while(replace >= 0) {
+            if(nums[replace] < nums[replace + 1]){
+                break;
+            }
+            replace--;
+        }
+        
+        if(replace < 0) {
+            Arrays.sort(nums);
+            return;
+        }
+        
+        int largerIndex = replace + 1;
+        while(largerIndex < nums.length && nums[largerIndex] > nums[replace]) {
+            largerIndex++;
+        }
+        
+        int tmp = nums[replace];
+        nums[replace] = nums[largerIndex - 1];
+        nums[largerIndex - 1] = tmp;
+        Arrays.sort(nums, replace + 1, nums.length);
+    }
+}
