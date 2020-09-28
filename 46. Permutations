@@ -1,0 +1,27 @@
+class Solution {
+    private List<List<Integer>> res = new ArrayList<>();
+    private int length;
+        
+    public List<List<Integer>> permute(int[] nums) {
+        length = nums.length;
+        List<Integer> selected = new ArrayList<>(); 
+        helper(selected, nums, 0);
+        return res;
+    }
+    
+    private void helper(List<Integer> selected, int[] nums, int pos) {
+        if(pos == length) {
+            res.add(new ArrayList<Integer>(selected));
+            return;
+        }
+        
+        for(int i = 0; i < nums.length; i++) {
+            if(selected.contains(nums[i])) {
+                continue;
+            }
+            selected.add(nums[i]);
+            helper(selected, nums, pos + 1);
+            selected.remove(selected.size() - 1);
+        }
+    }
+}
