@@ -1,0 +1,28 @@
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> selected = new ArrayList<>();
+        int[] visited = new int[nums.length];
+        helper(res, selected, nums, 0, visited);
+        return res;
+    }
+    
+    public void helper(List<List<Integer>> res, List<Integer> selected, int[] nums, int position, int[] visited) {
+        if(position == nums.length) {
+            res.add(new ArrayList<Integer>(selected));
+            return;
+        }
+        
+        for(int i = 0; i < nums.length; i++) {
+            if(visited[i] == 1 || ( i > 0 && nums[i] == nums[i -1] && visited[i - 1] == 0)){
+                continue;
+            }
+            selected.add(nums[i]);
+            visited[i] = 1;
+            helper(res, selected, nums, position + 1, visited);
+            selected.remove(selected.size() - 1);
+            visited[i] = 0;
+        }
+    }
+}
