@@ -1,0 +1,21 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        backtracking(n, n, "", result);
+        return result;
+    }
+    
+    public void backtracking(int left, int right, String out, List<String> result) {
+        if(left < 0 || right < 0 || left > right) {
+            return;
+        }
+        
+        if(left == 0 && right == 0) {
+            result.add(out);
+            return;
+        }
+        
+        backtracking(left - 1, right, out + "(", result);
+        backtracking(left, right - 1, out + ")", result);
+    }
+}
