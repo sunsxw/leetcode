@@ -1,0 +1,35 @@
+class Solution {
+    public int myAtoi(String s) {
+        int flag = 1;
+        int i = 0;
+        long v = 0;
+        while(i < s.length() && s.charAt(i) == ' ') {
+            i++;
+        }
+        
+        if(i < s.length() && (s.charAt(i) == '-' || s.charAt(i) == '+')) {
+            if(s.charAt(i) == '-') {
+                flag = -1;
+            }
+            i++;
+        }
+        
+        while(i < s.length() && Character.isDigit(s.charAt(i))) {
+            v = v * 10 + (long)(s.charAt(i) - '0');
+            if(v > Integer.MAX_VALUE || v < Integer.MIN_VALUE) {
+                break;
+            }
+            i++;
+        }
+        v = v * flag;
+        if(v > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        
+        if(v < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+        
+        return (int)v;
+    }
+}
