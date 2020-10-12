@@ -1,0 +1,22 @@
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0) {
+            return false;
+        }
+        
+        String strX = String.valueOf(x);
+        int length = strX.length();
+        int left = length / 2 - 1;
+        int right = length % 2 == 0 ? left + 1 : left + 2;
+        
+        while(left >= 0) {
+            if(strX.charAt(left) != strX.charAt(right)) {
+                return false;
+            }
+            left--;
+            right++;
+        }
+        
+        return true;
+    }
+}
